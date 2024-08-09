@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Leaderboard from "../types/Leaderboard";
 import React from "react";
 import Member from "../types/Member";
+import HelpButton from "./HelpButton";
 
 interface LeaderboardJsonInputProps {
     updateLeaderboard: (leaderboard: Leaderboard) => void;
@@ -124,6 +125,7 @@ export default function LeaderboardJsonInput({
                     onChange={handleFileChange}
                 />
             </Button>
+            <HelpButton />
             {filename && <span>{filename}</span>}
 
             {fileState.type === "none" && (
@@ -134,6 +136,12 @@ export default function LeaderboardJsonInput({
 
             {fileState.type === "error" && (
                 <Alert severity="error">{fileState.message}</Alert>
+            )}
+
+            {fileState.type === "success" && (
+                <Alert severity="success">
+                    Leaderboard loaded successfully.
+                </Alert>
             )}
         </div>
     );
