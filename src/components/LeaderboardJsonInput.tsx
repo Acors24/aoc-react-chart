@@ -5,6 +5,7 @@ import Leaderboard from "../types/Leaderboard";
 import React from "react";
 import Member from "../types/Member";
 import HelpButton from "./HelpButton";
+import LoadExampleButton from "./LoadExampleButton";
 
 interface LeaderboardJsonInputProps {
     updateLeaderboard: (leaderboard: Leaderboard) => void;
@@ -134,9 +135,12 @@ export default function LeaderboardJsonInput({
             {filename && <span>{filename}</span>}
 
             {fileState.type === "none" && (
-                <Alert severity="info">
-                    Select a JSON leaderboard file to get started.
-                </Alert>
+                <>
+                    <Alert severity="info">
+                        Select a JSON leaderboard file to get started.
+                    </Alert>
+                    <LoadExampleButton processFile={processFile} />
+                </>
             )}
 
             {fileState.type === "error" && (
