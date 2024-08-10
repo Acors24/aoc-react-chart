@@ -67,7 +67,7 @@ function validateMember(member: Member) {
 }
 
 export default function LeaderboardJsonInput({
-    updateLeaderboard: setLeaderboard,
+    updateLeaderboard,
 }: Readonly<LeaderboardJsonInputProps>) {
     const [filename, setFilename] = React.useState<string | null>(null);
 
@@ -83,14 +83,19 @@ export default function LeaderboardJsonInput({
         type: "none",
     });
 
-    async function handleFileChange(
-        event: React.ChangeEvent<HTMLInputElement>
-    ) {
-        const file = event.target.files?.[0];
-        if (!file) {
-            return;
-        }
+    const handleFileChange = React.useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const file = event.target.files?.[0];
+            if (!file) {
+                return;
+            }
 
+            processFile(file);
+        },
+        []
+    );
+
+    const processFile = React.useCallback(async (file: File) => {
         const content = await file.text();
         const json: Leaderboard = JSON.parse(content);
 
@@ -105,8 +110,8 @@ export default function LeaderboardJsonInput({
 
         setFilename(file.name);
         setFileState({ type: "success" });
-        setLeaderboard(json);
-    }
+        updateLeaderboard(json);
+    }, []);
 
     return (
         <div className="flex gap-4 items-center">
