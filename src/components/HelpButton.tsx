@@ -1,5 +1,5 @@
 import { QuestionMark } from "@mui/icons-material";
-import { Button, Link, Popover, Typography } from "@mui/material";
+import { Button, Link, Popover } from "@mui/material";
 import React from "react";
 
 export default function HelpButton() {
@@ -30,8 +30,8 @@ export default function HelpButton() {
                     horizontal: "center",
                 }}
             >
-                <Typography sx={{ p: 2 }}>
-                    <p>
+                <div className="p-4">
+                    <p className="pb-2">
                         The JSON file should be exported from the Advent of Code
                         leaderboard page.
                     </p>
@@ -48,7 +48,7 @@ export default function HelpButton() {
                         <li>Download the file.</li>
                         <li>Upload the downloaded file here.</li>
                     </ol>
-                </Typography>
+                </div>
             </Popover>
         </>
     );
