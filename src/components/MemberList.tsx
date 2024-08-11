@@ -23,7 +23,6 @@ export default function MemberList({
     return (
         <FormGroup
             sx={{
-                padding: "0 1rem",
                 overflowY: "scroll",
                 flexWrap: "nowrap",
             }}
@@ -51,6 +50,7 @@ export default function MemberList({
                     label={displayName}
                     sx={{
                         color: "white",
+                        margin: "0.25em 0",
                         backgroundColor: displayNameToColor[displayName],
                         position: "relative",
                         "::before": {
@@ -67,7 +67,7 @@ export default function MemberList({
                             backgroundColor: "rgba(0,0,0,0.1)",
                         },
                     }}
-                    className="rounded-md m-1"
+                    className="rounded-md"
                 />
             ))}
         </FormGroup>

@@ -240,8 +240,8 @@ function App() {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <div className="flex flex-col h-screen">
-                <div className="flex justify-between m-2">
+            <div className="h-screen">
+                <div className="flex justify-between p-2 h-[4em]">
                     <LeaderboardJsonInput
                         updateLeaderboard={updateLeaderboard}
                         setFileState={setFileState}
@@ -270,7 +270,7 @@ function App() {
                 )}
 
                 {scores && (
-                    <div className="flex flex-1">
+                    <div className="flex h-[calc(100vh-4em)]">
                         <Chart
                             {...{
                                 minDate,
