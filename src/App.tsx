@@ -10,6 +10,8 @@ import LeaderboardJsonInput from "./components/LeaderboardJsonInput";
 import { findLast, insertSorted } from "./utilities";
 import Chart from "./components/Chart";
 import MemberList from "./components/MemberList";
+import FileState from "./types/FileState";
+import Alert from "@mui/material/Alert";    
 
 function collectSortedTimestamps(leaderboard: Leaderboard) {
     let dayTimestamps: {
@@ -182,6 +184,10 @@ function getColors(scores: {
 }
 
 function App() {
+    const [fileState, setFileState] = useState<FileState>({
+        type: "none",
+    });
+
     const [scores, setScores] = useState<{
         [key: string]: { timestamp: number; score: number }[];
     } | null>(null);
@@ -238,6 +244,7 @@ function App() {
                 <div className="flex justify-between m-2">
                     <LeaderboardJsonInput
                         updateLeaderboard={updateLeaderboard}
+                        setFileState={setFileState}
                     />
 
                     {scores && (
@@ -251,6 +258,17 @@ function App() {
                         />
                     )}
                 </div>
+
+                {fileState.type === "none" && (
+                    <Alert severity="info">
+                        Select a JSON leaderboard file to get started.
+                    </Alert>
+                )}
+
+                {fileState.type === "error" && (
+                    <Alert severity="error">{fileState.message}</Alert>
+                )}
+
                 {scores && (
                     <div className="flex flex-1">
                         <Chart

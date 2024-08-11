@@ -1,14 +1,15 @@
 import { UploadFile } from "@mui/icons-material";
-import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Leaderboard from "../types/Leaderboard";
 import React from "react";
 import Member from "../types/Member";
 import HelpButton from "./HelpButton";
 import LoadExampleButton from "./LoadExampleButton";
+import FileState from "../types/FileState";
 
 interface LeaderboardJsonInputProps {
     updateLeaderboard: (leaderboard: Leaderboard) => void;
+    setFileState: React.Dispatch<FileState>;
 }
 
 function validateLeaderboard(json: Leaderboard) {
@@ -69,20 +70,9 @@ function validateMember(member: Member) {
 
 export default function LeaderboardJsonInput({
     updateLeaderboard,
+    setFileState,
 }: Readonly<LeaderboardJsonInputProps>) {
     const [filename, setFilename] = React.useState<string | null>(null);
-
-    const [fileState, setFileState] = React.useState<
-        | {
-              type: "none" | "success";
-          }
-        | {
-              type: "error";
-              message: string;
-          }
-    >({
-        type: "none",
-    });
 
     const handleFileChange = React.useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,26 +122,8 @@ export default function LeaderboardJsonInput({
                 />
             </Button>
             <HelpButton />
+            {!filename && <LoadExampleButton processFile={processFile} />}
             {filename && <span>{filename}</span>}
-
-            {fileState.type === "none" && (
-                <>
-                    <Alert severity="info">
-                        Select a JSON leaderboard file to get started.
-                    </Alert>
-                    <LoadExampleButton processFile={processFile} />
-                </>
-            )}
-
-            {fileState.type === "error" && (
-                <Alert severity="error">{fileState.message}</Alert>
-            )}
-
-            {fileState.type === "success" && (
-                <Alert severity="success">
-                    Leaderboard loaded successfully.
-                </Alert>
-            )}
         </div>
     );
 }
