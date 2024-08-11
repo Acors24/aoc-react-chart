@@ -39,6 +39,11 @@ export default function Chart({
                 curve: "stepAfter",
                 showMark: false,
             }))}
+            slotProps={{
+                legend: {
+                    hidden: true
+                }
+            }}
             dataset={dataset}
             skipAnimation
         />
